@@ -77,14 +77,12 @@ WSGI_APPLICATION = 'tests.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": os.environ.get("DB_ENGINE", 'django.db.backends.sqlite3'),
-        "NAME": os.environ.get("DB_NAME", os.path.join(os.path.dirname(__file__), 'db.sqlite3')),
-        "USER": os.environ.get("DB_USER", ""),
-        "PASSWORD": os.environ.get("DB_PASSWORD", ""),
-        "TEST": {
-            "SERIALIZE": False,  # Speed up tests.
-        },
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '',
+    },
 }
 
 

@@ -10,3 +10,5 @@ from __future__ import unicode_literals
 
 
 __version__ = VERSION = (1, 10, 1)
+
+default_app_config = 'reversion.apps.ReversionConfig'

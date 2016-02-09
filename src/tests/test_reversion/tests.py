@@ -940,3 +940,14 @@ class DeleteUserTest(RevisionTestBase):
         self.user.delete()
         self.assertEqual(Revision.objects.count(), 1)
         self.assertEqual(Version.objects.count(), 4)
+
+
+class JSONFieldTestCase(RevisionTestBase):
+
+    def test_json_field_ok(self):
+        with create_revision():
+            self.test11.name = 'namenamename'
+            self.test11.save()
+
+        obj_version = list(Version.objects.all())[-1]
+        self.assertTrue(len(obj_version.json) > 0)

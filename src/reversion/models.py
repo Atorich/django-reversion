@@ -3,6 +3,8 @@
 from __future__ import unicode_literals
 
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.postgres.fields import JSONField
+
 try:
     from django.contrib.contenttypes.fields import GenericForeignKey
 except ImportError:  # Django < 1.9 pragma: no cover
@@ -157,6 +159,8 @@ class Version(models.Model):
     serialized_data = models.TextField(help_text="The serialized form of this version of the model.")
 
     object_repr = models.TextField(help_text="A string representation of the object.")
+
+    json = JSONField(default='{}', help_text="PostgreSQL json serialized form of this version of the model.")
 
     @property
     def object_version(self):
