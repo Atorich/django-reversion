@@ -1,3 +1,4 @@
+import json
 from django.db.models.signals import pre_save
 from django.dispatch.dispatcher import Signal, receiver
 
@@ -20,4 +21,13 @@ def store_json(sender, **kwargs):
             "%s format is not implemented yet" % instance.format
         )
 
-    instance.json = instance.serialized_data
+    # django default encoder encodes object via list:
+    # [{ ... fields }] instead of { ...fields } for security reasons
+    # so we need to make this stupid transformation
+    # bad.. very bad, but there is no ideas at the time to do it another way
+    # quickly
+    # so it is todo! find more elegant way for it
+    try:
+        instance.json = json.loads(instance.serialized_data)[0]
+    except IndexError:
+        instance.json = {}
